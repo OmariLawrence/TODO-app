@@ -35,14 +35,21 @@ public class List extends AppCompatActivity implements View.OnClickListener, Ada
         add = findViewById(R.id.addButton);
         list = findViewById(R.id.todoList);
 
-        //System.out.println("got here");
         tasks = FileHelp.readData(this);
-        adapt = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, tasks);
+
+
+        if(tasks == null){
+            tasks = new ArrayList<>();
+        }
+        if(tasks.isEmpty()){
+            tasks.add("All tasks completed");
+        }
+        adapt = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, tasks);
 
         list.setAdapter(adapt);
 
         add.setOnClickListener(this);
-        list.setOnClickListener(this);
+        list.setOnItemClickListener(this);
     }
 
     @Override
